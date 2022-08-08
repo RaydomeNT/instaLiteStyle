@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import { useEffect, useState } from "react";
 import './App.css';
+import Box from './box';
+import Other from './other';
 
 function App() {
+  const [user, setUser] = useState("???");
+  const [title, setTitle] = useState("???");
+  const [quote, setQuote] = useState("???");
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Fill in the blanks???</h1>
+      <Other />
+      {/* <Box personsname = "Zelda" age = "16" />
+      <Box personsname={user} age = "1" /> */}
+      <Box user={user} title={title} quote={quote} />
+      <input onChange={(event) => setUser(event.target.value)} />
+      <br></br>
+      <input onChange={(event) => setTitle(event.target.value)} />
+      <br></br>
+      <input onChange={(event) => setQuote(event.target.value)} />
     </div>
-  );
-}
+  )
+};
 
 export default App;
