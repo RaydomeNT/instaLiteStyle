@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import './App.css';
 import Delete from './components/delete';
 import AllUsers from './components/get';
@@ -9,23 +9,24 @@ import Update from './components/update';
 
 function App() {
   const [user, setUser] = useState();
-  // const [myPics, setMyPics] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [myPics, setMyPics] = useState([]);
   // const [displayImages, setDisplay] = useState(false);
   const [username, deleteUsername] = useState();
   const [email, setEmail] = useState();
   const [allUsers, setAllUsers] = useState([]);
   // const [login, setLogin] = useState();
    
-  // const fetchPics = async () => {
-  //   const response = await fetch("https://picsum.photos/v2/list");
-  //   const data = await response.json();
-  //   setMyPics(data)
-  //   console.log(data)
-  // }
+  const fetchPics = async () => {
+    const response = await fetch("https://picsum.photos/v2/list");
+    const data = await response.json();
+    setMyPics(data)
+    console.log(data)
+  }
 
-  // useEffect(()=> {
-  //   fetchPics();
-  // },[])
+  useEffect(()=> {
+    fetchPics();
+  },[])
 
 return (
   <div className="App">
@@ -44,19 +45,18 @@ return (
    </div>
   <br></br>
   <div>
-    <Login user={setUser}/>
-    <h2>{user}</h2>
+    <Login setUser={setLoggedIn}/>
+    <h2>{loggedIn && <p>welcome back</p>}</h2>
    </div>
-  {/* <button onClick={(event) => setDisplay(!displayImages)}>Log In</button> */}
-    {/* {displayImages &&
-    myPics.map((item,index) => {
-      return (
-        <div>
-        <h2>{item.author}</h2>
-        <img src={item.download_url} alt="img" />
-        </div>     
-      )
-    })} */}
+    {loggedIn &&
+  myPics.map((item) => {
+    return (
+      <div>
+      <h2>{item.author}</h2>
+      <img src={item.download_url} alt="img" />
+      </div>     
+    )
+  })}
   <div>
     <AllUsers getter={setAllUsers}/>
     {allUsers.map((allUsers) => (
