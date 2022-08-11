@@ -1,26 +1,71 @@
-import { useEffect, useState } from "react";
+import {useState} from 'react';
 import './App.css';
-import Box from './box';
-import Other from './other';
+import Delete from './components/delete';
+import AllUsers from './components/get';
+import Login from './components/login';
+import SignupLogin from "./components/signupLogin";
+import Update from './components/update';
+// import { getUsers } from './utils';
 
 function App() {
-  const [user, setUser] = useState("???");
-  const [title, setTitle] = useState("???");
-  const [quote, setQuote] = useState("???");
-  return (
-    <div className="App">
-      <h1>Fill in the blanks???</h1>
-      <Other />
-      {/* <Box personsname = "Zelda" age = "16" />
-      <Box personsname={user} age = "1" /> */}
-      <Box user={user} title={title} quote={quote} />
-      <input onChange={(event) => setUser(event.target.value)} />
-      <br></br>
-      <input onChange={(event) => setTitle(event.target.value)} />
-      <br></br>
-      <input onChange={(event) => setQuote(event.target.value)} />
-    </div>
-  )
-};
+  const [user, setUser] = useState();
+  // const [myPics, setMyPics] = useState([]);
+  // const [displayImages, setDisplay] = useState(false);
+  const [username, deleteUsername] = useState();
+  const [email, setEmail] = useState();
+  const [allUsers, setAllUsers] = useState([]);
+  // const [login, setLogin] = useState();
+   
+  // const fetchPics = async () => {
+  //   const response = await fetch("https://picsum.photos/v2/list");
+  //   const data = await response.json();
+  //   setMyPics(data)
+  //   console.log(data)
+  // }
+
+  // useEffect(()=> {
+  //   fetchPics();
+  // },[])
+
+return (
+  <div className="App">
+    <SignupLogin setter={setUser}/>
+    <br></br>
+    <h1>{user}</h1>
+    <br></br>
+  <div>
+    <Delete deleteAccount={deleteUsername}/>
+    <h2>{username}</h2>
+  </div>
+  <br></br>
+  <div>
+    <Update updateInfo={setEmail}/>
+    <h2>{email}</h2>
+   </div>
+  <br></br>
+  <div>
+    <Login user={setUser}/>
+    <h2>{user}</h2>
+   </div>
+  {/* <button onClick={(event) => setDisplay(!displayImages)}>Log In</button> */}
+    {/* {displayImages &&
+    myPics.map((item,index) => {
+      return (
+        <div>
+        <h2>{item.author}</h2>
+        <img src={item.download_url} alt="img" />
+        </div>     
+      )
+    })} */}
+  <div>
+    <AllUsers getter={setAllUsers}/>
+    {allUsers.map((allUsers) => (
+      <ul>
+    <h2>{allUsers}</h2>
+    </ul>
+    ))}   
+  </div></div>
+  );
+}
 
 export default App;
