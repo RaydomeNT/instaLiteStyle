@@ -1,24 +1,27 @@
 import { useState, useEffect } from "react";
 
 function Home() {
-    // const [myPics, setMyPics] = useState([]);
-    const [item, setItem] = useState("");
+  const [myPics, setMyPics] = useState([]);
 
-  const getData = async () => {
+  const fetchPics = async () => {
     let response = await fetch("https://picsum.photos/v2/list");
     let data = await response.json();
-    setItem(data[0]);
+    setMyPics(data);
   };
   useEffect(() => {
-    getData();
+    fetchPics();
   }, []);
 
   return (
     <body>
-        <h2>{item.author}</h2>
-        <img src={item.download_url} alt="img" />
+      {myPics.map((item) => (
+        <ul>
+          <h2>{item.author}</h2>
+          <img src={item.download_url} alt="img" />
+        </ul>
+      ))}
     </body>
   );
-};
+}
 
-    export default Home;
+export default Home;
